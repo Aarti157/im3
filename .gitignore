@@ -1,1 +1,3 @@
-.vscode
+backend/config.php
+backend/template.config.php
+.vscode/*
