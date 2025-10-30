@@ -3,16 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parkhaus</title>
+    <title>Basel Parkhaus Übersicht</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<main>  
-</main>
-<script src="script.js"></script> 
 <body>
- <main>  
-  <h1>hallo</h1>
-    </main>
-<script type="module" src="script.js"></script>
+    <div class="container">
+        <h1>Basel Parkhaus Verfügbarkeit</h1>
+        
+        <!-- Steuerelemente für Zeit und Tag -->
+        <div class="controls">
+            <div class="control-group">
+                <label for="hour-select">Uhrzeit:</label>
+                <select id="hour-select">
+                    <option value="0">00:00</option>
+                    <option value="1">01:00</option>
+                    <option value="2">02:00</option>
+                    <option value="3">03:00</option>
+                    <option value="4">04:00</option>
+                    <option value="5">05:00</option>
+                    <option value="6">06:00</option>
+                    <option value="7">07:00</option>
+                    <option value="8">08:00</option>
+                    <option value="9">09:00</option>
+                    <option value="10">10:00</option>
+                    <option value="11">11:00</option>
+                    <option value="12">12:00</option>
+                    <option value="13">13:00</option>
+                    <option value="14" selected>14:00</option>
+                    <option value="15">15:00</option>
+                    <option value="16">16:00</option>
+                    <option value="17">17:00</option>
+                    <option value="18">18:00</option>
+                    <option value="19">19:00</option>
+                    <option value="20">20:00</option>
+                    <option value="21">21:00</option>
+                    <option value="22">22:00</option>
+                    <option value="23">23:00</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label for="weekday-select">Wochentag:</label>
+                <select id="weekday-select">
+                    <option value="0">Montag</option>
+                    <option value="1">Dienstag</option>
+                    <option value="2" selected>Mittwoch</option>
+                    <option value="3">Donnerstag</option>
+                    <option value="4">Freitag</option>
+                    <option value="5">Samstag</option>
+                    <option value="6">Sonntag</option>
+                </select>
+            </div>
+
+            <button id="load-button">Daten laden</button>
+        </div>
+
+        <!-- Ladeindikator -->
+        <div id="loading" class="loading hidden">Daten werden geladen...</div>
+
+        <!-- Bereich für die Datenanzeige -->
+        <div id="data-display" class="data-display">
+            <p>Wähle eine Zeit und einen Wochentag, um die Durchschnittswerte zu sehen.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
