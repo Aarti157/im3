@@ -6,7 +6,7 @@ require_once '../config.php';
 // -> verbindung mit der datenbank
 try {
     $pdo = new PDO($dsn, $username, $password, $options);//datenbankverbindung herstellen
-    $sql = "SELECT * from parkhaus WHERE WEEKDAY('published') = 0";//sql abfrage formulieren
+    $sql = "SELECT * FROM `parkhaus`";//sql abfrage formulieren
     $stmt= $pdo->prepare ($sql);//abfrage vorbereiten
     $stmt->execute();//abfrage ausführen
     $results= $stmt-> fetchAll();//Ergebnis in mehrdimensionales Array umwandeln
