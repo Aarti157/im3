@@ -104,13 +104,6 @@ function updatePins(data) {
             p.style.fill = style.fill;
         });
 
-        // Nur Scale an vorhandenen Transform anhängen (Position aus Illustrator bleibt)
-        /*const existingTransform = pinGroup.getAttribute('transform') || '';
-        const withoutOldScale = existingTransform.replace(/scale\([^)]*\)/, '').trim();
-        const baseTransform = withoutOldScale || '';
-        const newTransform = (baseTransform + ' scale(' + style.scale + ')').trim();
-        pinGroup.setAttribute('transform', newTransform);*/
-
         pinGroup.style.cursor = 'pointer';
 
         // Falls es für dieses Parkhaus schon ein Popup-Element gibt, wiederverwenden
@@ -133,7 +126,6 @@ function updatePins(data) {
                 popup.classList.add('hidden');
                 pinnedPopups.delete(parkhaus.title);
             });
-            
         }
 
         const titleEl = popup.querySelector('.pin-popup-title');
@@ -162,56 +154,59 @@ function updatePins(data) {
                 popup.style.transform = 'translate(-50%, -50%)';
             }
         }
-        
 
-       // Nur im Desktop: Hover aktivieren
-if (window.innerWidth > 768) {
-    pinGroup.onmouseenter = () => {
-        if (pinnedPopups.has(parkhaus.title)) {
-            positionPopup();
-            return;
+        // Event-Listener entfernen (falls vorhanden) und neu setzen
+        pinGroup.onmouseenter = null;
+        pinGroup.onmouseleave = null;
+        pinGroup.onclick = null;
+
+        // Desktop: Hover aktivieren
+        if (window.innerWidth > 768) {
+            pinGroup.onmouseenter = () => {
+                if (pinnedPopups.has(parkhaus.title)) {
+                    positionPopup();
+                    return;
+                }
+                positionPopup();
+                popup.classList.remove('hidden');
+            };
+
+            pinGroup.onmouseleave = () => {
+                if (pinnedPopups.has(parkhaus.title)) {
+                    return;
+                }
+                popup.classList.add('hidden');
+            };
         }
-        positionPopup();
-        popup.classList.remove('hidden');
-    };
 
-    pinGroup.onmouseleave = () => {
-        if (pinnedPopups.has(parkhaus.title)) {
-            return;
-        }
-        popup.classList.add('hidden');
-    };
-}
-
-
-
-
-pinGroup.onclick = () => {
-    // Im Responsive: zuerst alle anderen Popups schließen
-    if (window.innerWidth <= 768) {
-        const allPopups = mapWrapper.querySelectorAll('.pin-popup');
-        allPopups.forEach(p => {
-            if (p !== popup) {
-                p.classList.add('hidden');
+        // Click-Event für BEIDE Modi (Desktop UND Mobile)
+        pinGroup.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Im Responsive: zuerst alle anderen Popups schließen
+            if (window.innerWidth <= 768) {
+                const allPopups = mapWrapper.querySelectorAll('.pin-popup');
+                allPopups.forEach(p => {
+                    if (p !== popup) {
+                        p.classList.add('hidden');
+                    }
+                });
+                pinnedPopups.clear();
             }
-        });
-        pinnedPopups.clear();
-        
-    }
 
-    if (pinnedPopups.has(parkhaus.title)) {
-        pinnedPopups.delete(parkhaus.title);
-        popup.classList.add('hidden');
-        
-
-    } else {
-        positionPopup();
-        popup.classList.remove('hidden');
-        pinnedPopups.add(parkhaus.title);
-    }
-};
-});
+            if (pinnedPopups.has(parkhaus.title)) {
+                pinnedPopups.delete(parkhaus.title);
+                popup.classList.add('hidden');
+            } else {
+                positionPopup();
+                popup.classList.remove('hidden');
+                pinnedPopups.add(parkhaus.title);
+            }
+        };
+    });
 }
+
 
 
 
