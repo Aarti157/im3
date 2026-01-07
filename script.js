@@ -4,6 +4,7 @@ let parkhausData = [];
 // Merker, welche Parkhäuser ein „fixiertes“ (geklicktes) Popup haben
 const pinnedPopups = new Set();
 
+
 // Funktion: Daten von der API laden
 async function loadAverageData(hour, weekday) {
     const url = `https://im3.potterai.ch/backend/api/calculate_averages.php?hour=${hour}&weekday=${weekday}`;
@@ -132,6 +133,7 @@ function updatePins(data) {
                 popup.classList.add('hidden');
                 pinnedPopups.delete(parkhaus.title);
             });
+            
         }
 
         const titleEl = popup.querySelector('.pin-popup-title');
@@ -140,44 +142,78 @@ function updatePins(data) {
         textEl.textContent = `${parkhaus.avg_free} freie Plätze`;
 
         function positionPopup() {
-            const pos = getPinScreenPosition(pinGroup);
-            const wrapperRect = mapWrapper.getBoundingClientRect();
-
-            const left = pos.x - wrapperRect.left + 8;
-            const top = pos.y - wrapperRect.top - 10;
-
-            popup.style.left = `${left}px`;
-            popup.style.top = `${top}px`;
-        }
-
-        pinGroup.onmouseenter = () => {
-            if (pinnedPopups.has(parkhaus.title)) {
-                positionPopup();
-                return;
-            }
-            positionPopup();
-            popup.classList.remove('hidden');
-        };
-
-        pinGroup.onmouseleave = () => {
-            if (pinnedPopups.has(parkhaus.title)) {
-                return;
-            }
-            popup.classList.add('hidden');
-        };
-
-        pinGroup.onclick = () => {
-            if (pinnedPopups.has(parkhaus.title)) {
-                pinnedPopups.delete(parkhaus.title);
-                popup.classList.add('hidden');
+            // Im Desktop: Position neben dem Pin
+            if (window.innerWidth > 768) {
+                const pos = getPinScreenPosition(pinGroup);
+                const wrapperRect = mapWrapper.getBoundingClientRect();
+        
+                const left = pos.x - wrapperRect.left + 8;
+                const top = pos.y - wrapperRect.top - 10;
+        
+                popup.style.left = `${left}px`;
+                popup.style.top = `${top}px`;
+                popup.style.position = 'absolute';
+                popup.style.transform = 'none';
             } else {
-                positionPopup();
-                popup.classList.remove('hidden');
-                pinnedPopups.add(parkhaus.title);
+                // Im Responsive: zentriert (CSS übernimmt)
+                popup.style.position = 'fixed';
+                popup.style.left = '50%';
+                popup.style.top = '50%';
+                popup.style.transform = 'translate(-50%, -50%)';
             }
-        };
-    });
+        }
+        
+
+       // Nur im Desktop: Hover aktivieren
+if (window.innerWidth > 768) {
+    pinGroup.onmouseenter = () => {
+        if (pinnedPopups.has(parkhaus.title)) {
+            positionPopup();
+            return;
+        }
+        positionPopup();
+        popup.classList.remove('hidden');
+    };
+
+    pinGroup.onmouseleave = () => {
+        if (pinnedPopups.has(parkhaus.title)) {
+            return;
+        }
+        popup.classList.add('hidden');
+    };
 }
+
+
+
+
+pinGroup.onclick = () => {
+    // Im Responsive: zuerst alle anderen Popups schließen
+    if (window.innerWidth <= 768) {
+        const allPopups = mapWrapper.querySelectorAll('.pin-popup');
+        allPopups.forEach(p => {
+            if (p !== popup) {
+                p.classList.add('hidden');
+            }
+        });
+        pinnedPopups.clear();
+        
+    }
+
+    if (pinnedPopups.has(parkhaus.title)) {
+        pinnedPopups.delete(parkhaus.title);
+        popup.classList.add('hidden');
+        
+
+    } else {
+        positionPopup();
+        popup.classList.remove('hidden');
+        pinnedPopups.add(parkhaus.title);
+    }
+};
+});
+}
+
+
 
 // Funktion: Ladeindikator anzeigen/verstecken
 function toggleLoading(show) {
