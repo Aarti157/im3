@@ -208,6 +208,21 @@ function updatePins(data) {
 }
 
 
+// Funktion: Panel-Text aktualisieren
+function updatePanelText() {
+    const hourValue = document.getElementById('hour-select').value;
+    const weekdayValue = document.getElementById('weekday-select').value;
+    
+    // Wochentags-Namen
+    const weekdayNames = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+    
+    // Uhrzeit formatieren (z.B. "14" -> "14:00")
+    const hourFormatted = hourValue.padStart(2, '0') + ':00';
+    
+    // Text aktualisieren
+    document.getElementById('panel-weekday').textContent = weekdayNames[weekdayValue];
+    document.getElementById('panel-hour').textContent = hourFormatted;
+}
 
 
 // Funktion: Ladeindikator anzeigen/verstecken
@@ -240,10 +255,12 @@ function initPinsDefault() {
     });
 }
 
-// Funktion: Daten laden und anzeigen
 async function loadAndDisplay() {
     const hour = document.getElementById('hour-select').value;
     const weekday = document.getElementById('weekday-select').value;
+
+    // Panel-Text aktualisieren
+    updatePanelText();
 
     // Beim neuen Laden: alle Popups zurücksetzen
     pinnedPopups.clear();
@@ -265,6 +282,7 @@ async function loadAndDisplay() {
             '<p style="color: #ff0000;">Fehler beim Laden der Daten. Bitte versuche es erneut.</p>';
     }
 }
+
 
 // Event-Listener: Button-Klick
 document.getElementById('load-button').addEventListener('click', loadAndDisplay);
