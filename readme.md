@@ -1,0 +1,11 @@
+Kurzbeschreibung:
+Das Projekt ist eine interaktive Webanwendung, die Belegungsdaten der Basler Parkhäuser der letzten Wochen auf einer detaillierten SVG-Stadtkarte visualisiert. Nutzer:innen wählen Wochentag und Uhrzeit und sehen farbcodierte Pins: je nach Auslastung signalisiert die Farbe, wie viele Plätze noch frei sind. Ein Klick auf einen Pin öffnet ein Popup mit der durchschnittlichen Parkhausbelegung zum gewählten Parkhaus. So können Autofahrende vor der Anreise besser einschätzen, in welchem Parkhaus die Chance auf einen freien Parkplatz am höchsten ist.
+
+Learnings:
+Ich habe beim ETL‑Prozess gelernt, wie wichtig saubere Vorarbeit ist. Da im ganzen Projekt mit der erstellten Datenbank gearbeitet wird, muss diese möglichst fehlerfrei aufgebaut sein. Bei diesem Projekt war die Datenbank zwar noch nicht sehr komplex, aber ich nehme diese Erfahrung für zukünftige Projekte mit. Zudem habe ich gelernt, effizient mit KI‑Tools wie Perplexity zu arbeiten: Ein Prompt muss klar, präzise und detailliert sein, damit keine Interpretationsspielräume und wichtigen Lücken entstehen. Ausserdem braucht es immer ein Grundverständnis für den Schritt, den man ausführen möchte, um die Antworten sinnvoll nutzen zu können.
+
+Schwierigkeiten:
+Eine grosse Herausforderung war das responsive Design. Zuerst konnte ich die Karte lange nicht sinnvoll ins Hochformat bringen, und die erste Lösung war wenig nutzerfreundlich. Deshalb habe ich mich für eine querformatige Mobile‑Ansicht entschieden, in der die Pins gross genug sind, damit die Seite gut bedienbar ist. Ausserdem war ich im Nachhinein mit meinem ursprünglichen UX‑Design aus Figma unzufrieden: Eine zweite, sich öffnende Seite wirkte zu umständlich. Darum habe ich mich in der fertigen Website für ein angepasstes Design entschieden, bei dem alle wichtigen Informationen auf einer Seite sichtbar sind.
+
+benutzte Ressourcen:
+Ich habe mit Perplexity Pro (Claude Sonnet 4.5) gearbeitet. Ich habe zuerst mein Projekt genau beschrieben und liess daraus einen Projektplan prompten. Dann habe ich den Projektplan als neuen Prompt geschickt und bin in Schrittweise durchgegangen.

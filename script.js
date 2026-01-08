@@ -55,9 +55,9 @@ function getPinStyle(avgFree) {
     } else if (avgFree < 50) {
         return { fill: '#ff0000', scale: 0.8 }; // rot, klein
     } else if (avgFree < 200) {
-        return { fill: '#ffb300', scale: 1.0 }; // gelb/orange, mittel
+        return { fill: '#EEF206', scale: 1.0 }; // gelb/orange, mittel
     } else {
-        return { fill: '#00c853', scale: 1.2 }; // grün, groß
+        return { fill: '#04E717', scale: 1.2 }; // grün, groß
     }
 }
 
@@ -250,7 +250,7 @@ function initPinsDefault() {
     pinGroups.forEach(pinGroup => {
         const paths = pinGroup.querySelectorAll('path');
         paths.forEach(p => {
-            p.style.fill = '#000000'; // schwarz
+            p.style.fill = '#ffffff'; // schwarz
         });
     });
 }

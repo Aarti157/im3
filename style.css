@@ -272,18 +272,23 @@ body {
     .pin-popup-close {
         font-size: 12px;
     }
-      /* Pin-Popups im Responsive zentriert und größer */
-  .pin-popup {
+   /* Pin-Popups im Responsive direkt unter dem Control-Panel */
+   .pin-popup {
     position: fixed !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    width: 75vw !important;
-    max-width: 300px !important;
+    top: auto !important;  /* auto statt 50% */
+    bottom: 40px !important;  /* Abstand vom unteren Rand */
+    left: 16px !important;  /* gleich wie Control-Panel */
+    transform: none !important;  /* keine Zentrierung mehr */
+    width: 45vw !important;  /* gleiche Breite wie Control-Panel */
+    max-width: 45vw !important;
     font-size: 15px !important;
     padding: 20px 24px 18px 20px !important;
     z-index: 1001 !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
   }
+
+
 
  
 }
